@@ -17,6 +17,25 @@ A player moves within this map. A player has a direction that it moves in and a 
 
 ![image](./img/player.png)
 
+### Field of view and rays
+
+Each player has a field of view. This is the view that is seen my the player and rendered. 
+We use the FOV to find out how many rays we are going to have. 
+We use the size of the projection plane, and the FOV in degrees to find out how many rays we need to cast. 
+
+The algorithm for casting rays will then be: 
+1. Subtract half of the FOV to get the first ray (left most ray). This is the column 0. 
+2. Loop over each column for the projection plane:
+    - Cast a ray
+    - Trace ray until it hits a wall (we assume that the player is in a box environment)
+    - If we hit a wall, store the distance between the wall and array
+    - Increment the angle such that we are ready to cast the next ray
+
+
+The image below shows the player with rays cast (not until wall hit).
+
+![image](./img/cast_ray.png)
+
 
 ### Resources 
 
