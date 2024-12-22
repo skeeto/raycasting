@@ -11,11 +11,11 @@ In a 320x200 display image, we send 320 rays. One for each column in the image. 
 
 We need a map. Map represents the view of the scene. We need to know what the map looks like, by defining a matrix, where 0 represents empty space, and 1 represents a wall. We also need to know the tile size, meaning, how large is a tile in this map. 
 
-![image](./img/map.png)
+![image](./assets/github/map.png)
 
 A player moves within this map. A player has a direction that it moves in and a position. With simple input, we control if the player is hitting a wall next or not. The player will also tell us in what direction the player is looking. (Player and Map gives us key information for rendering the direction)
 
-![image](./img/player.png)
+![image](./assets/github/player.png)
 
 ### Field of view and rays
 
@@ -34,7 +34,7 @@ The algorithm for casting rays will then be:
 
 The image below shows the player with rays. It shows a 60 degree angle FOV. It is these rays we use to render the walls the player sees: 
 
-![image](./img/cast_ray.png)
+![image](./assets/github/cast_ray.png)
 
 
 ### Wall hit Algorithm 
@@ -85,11 +85,11 @@ All these steps form the DDA algorithm!
 
 The result: 
 
-![image](./img/rays_hitting_wall.png)
+![image](./assets/github/rays_hitting_wall.png)
 
 (With few rays)
 
-![image](./img/rays_hitting_wall_many.png)
+![image](./assets/github/rays_hitting_wall_many.png)
 
 (With a lot of rays. Easy to see where the rays hit the wall)
 
@@ -100,7 +100,7 @@ We now know the distance to the wall for each column. With this we want to rende
 
 The projected wall height is formulated by using the known distance between the player and the wall. The image below shows the what we want to solve: 
 
-![image](./img/projection_plane_wall.png)
+![image](./assets/github/projection_plane_wall.png)
 
 Wall projection size is calculated by using triangle similarity to the actual wall. Given the actual wall size, the distance (calculated when we cast the ray), and the distance between the projection plane and the player: 
 
@@ -119,7 +119,7 @@ This is the wall height. We render this strip of wall of each ray that we have c
 
 Here is the result of the rendered walls:
 
-![image](./img/rendered_walls.png)
+![image](./assets/github/rendered_walls.png)
 
 > The walls are not straight. This effect is called the [fishbowl distortion](https://en.wikipedia.org/wiki/Fisheye_lens). This happens because the rays hit the walls at different distances. All the rays need to find the non-distorted distance. Our human eye has a natural round distortion. The fix is simple; since we know the distant distance and the angle, we can calculate the correct distance by using cosine.  
 
@@ -128,20 +128,20 @@ Here is the result of the rendered walls:
 
 A simple improvement is to change the alpha of the wall strip, to give a better feeling of depth. When we move further away from the wall (distance becomes larger), we want alpha to become smaller. There is a lot of cool tricks out there to get the shading looking good. The key point here; there is an inverse relationship between the distance grows larger and the alpha becoming smaller. The result could look something like this: 
 
-![image](./img/simple_shading.png)
+![image](./assets/github/simple_shading.png)
 
 We can also make walls have a bright and dark side. This happens when we have a light source in the room. Then all walls on a certain side get a light color, while the other side gets a dark color. For the map, we can assume there is a light source thats high up and gives all our walls this effect: 
 
-![image](./img/bright_dark_wall.png)
+![image](./assets/github/bright_dark_wall.png)
 
 #### Walls with different colors
 
 Coloring walls can be solved in different ways. They all use the map. Here is the most simplest way to do it
-1. When you do ray casting, and a ray hits the wall, find out what the content of the map is on that wall
-2. Instead of using 1 for a wall, use another number that represent a color. 
-3. When you render the wall strip, use the number that represents a color, and render the strip in that color!
+1. Make the map contain information about color instead of 1 for wall (for instance 2 for color red)
+2. Cast the ray and find out the content of the wall
+3. Render the strip with that color
 
-![image](./img/colored_walls.png)
+![image](./assets/github/colored_walls.png)
 
 ### Resources 
 
