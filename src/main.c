@@ -17,10 +17,10 @@ int game_running;
 float ticks_since_last_frame = 0.0f; 
 
 // Player that walks in the ray cast simulation
-Player_T player;  
+Player_T *player = NULL;  
 
 // Map that has details on the wall settings
-Map_T* map = NULL; 
+Map_T *map = NULL; 
 
 /**
  * Method for initializing the window to render graphics.
@@ -85,7 +85,7 @@ void render(){
     //renderRays(&rays);
 
     // Render player 
-    //renderPlayer(&player);
+    renderPlayer(player, renderer);
 
     // Rendering all game objects
     SDL_RenderPresent(renderer);
@@ -145,7 +145,7 @@ void update(){
     ticks_since_last_frame = SDL_GetTicks();
 
     // Update player state
-    move_player(&player, 20, 20, dt);
+    //move_player(&player, 20, 20, dt);
 }
 
 /**
@@ -153,7 +153,7 @@ void update(){
  */
 void freeGameObjects(){
     freeMap(map);
-    freePlayer(&player);
+    freePlayer(player);
 }
 
 

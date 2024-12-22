@@ -62,8 +62,7 @@ void renderMap(Map_T *map, SDL_Renderer* renderer)
             int tile_y = i*TILE_SIZE; 
 
             // Tile color is either black or white, depending of if there is a wall there; 
-            int tile_color = map->grid[i][j] != 0 ? 100 : 20; 
-            printf("color %d at (%d, %d)\n", tile_color, i, j);
+            int tile_color = map->grid[i][j] != 0 ? 255 : 0; 
 
             // Color in the tile at given position 
             SDL_SetRenderDrawColor(renderer, tile_color, tile_color, tile_color, 255);

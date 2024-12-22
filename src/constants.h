@@ -14,7 +14,7 @@
 // Window size 
 #define WINDOW_WIDTH (TILE_SIZE * COLS)
 #define WINDOW_HEIGHT (TILE_SIZE * ROWS)
-#define MINIMAP_SCALE 0.3
+#define MINIMAP_SCALE 1.0
 
 // Field of view in radians 
 #define FOV_ANGLE (60 * (PI / 180))

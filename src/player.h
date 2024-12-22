@@ -1,3 +1,5 @@
+#include <SDL2/SDL.h>
+
 #ifndef PLAYER_H
 #define PLAYER_H
 
@@ -23,7 +25,7 @@ typedef struct Player{
  * 
  * @param player 
  */
-void init_player(Player_T* player);
+void init_player(Player_T **player);
 
 /**
  * Method for moving a player in X and Y
@@ -33,20 +35,20 @@ void init_player(Player_T* player);
  * @param dy change in y direction
  * @param delta_time delta time to make the move be dependent on the rendering rate
  */
-void move_player(Player_T* player, float dx, float dy, float delta_time);
+void move_player(Player_T *player, float dx, float dy, float delta_time);
 
 /**
  * De allocate the player
  * 
  * @param player player to free
  */
-void freePlayer(Player_T* player);
+void freePlayer(Player_T *player);
 
 /**
  * Render the player on the SDL screen
  * 
  * @param player 
  */
-void renderPlayer(Player_T* player);
+void renderPlayer(Player_T *player, SDL_Renderer *renderer);
 
 #endif
