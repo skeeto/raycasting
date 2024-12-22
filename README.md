@@ -1,7 +1,7 @@
 # Ray Casting in C
-Implementation of raycasting in C
+Implementation of ray casting in C
 
-## Theory behind Wolfstein 3D raycasting 
+## Theory behind Wolfstein 3D ray casting 
 
 The goal of the raycasting engine is simple. Given a 2D map, render the view of the player that is moving around in the map. At each step render a field of view that represents the view of the player. We use rays to figure out the distance between the wall and the player. If the distance is small, then the wall is closer. If the distance is larger, then the wall is further away. Based on the distance, we render a single column of the frame. The height of each wall depends on the distance. 
 
@@ -91,6 +91,37 @@ The result:
 
 ![image](./img/rays_hitting_wall_many.png)
 (With a lot of rays. Easy to see where the rays hit the wall)
+
+
+### Projection and rendering wall
+
+We now know the distance to the wall for each column. With this we want to render a wall with a given high, depending on the distance between the player and that wall. The hight of the wall creates the 3D effect. 
+
+The projected wall height is formulated by using the known distance between the player and the wall. The image below shows the what we want to solve: 
+
+![image](./img/projection_plane_wall.png)
+
+Wall projection size is calculated by using triangle similarity to the actual wall. Given the actual wall size, the distance (calculated when we cast the ray), and the distance between the projection plane and the player: 
+
+```math
+W_\text{Projected} = \frac{W_\text{actual}}{D_{r}} * \text{D_\text{projection plane}}
+```
+
+The distance between the projection plane and the player is: 
+```math
+\text{D_{projection plane}} = \frac{\frac{\text{WINDOW_WIDHT}}{2}}{\tan(\frac{FOV_ANGLE / 2})}
+```
+
+This makes sense logically. As we go further away, the ray cast distance increase, which leads to a smaller wall. I.e the wall gets smaller as we move further away. 
+
+This is the wall height. We render this strip of wall of each ray that we have casted. Note that we render a rectangle with this given height for each column. The X position of where we draw the wall is therefor the column number times the width of the wall. The Y position is half the window height subtract half of the wall strip. We know the height and we know the width, so we can render a rectangle for that ray. 
+
+Here is the result of the rendered walls:
+
+![image](./img/rendered_walls.png)
+
+> The walls are not straight. This effect is called the [fishbowl distortion](https://en.wikipedia.org/wiki/Fisheye_lens). This happens because the rays hit the walls at different distances. All the rays need to find the non-distorted distance. Our human eye has a natural round distortion. The fix is simple; since we know the distant distance and the angle, we can calculate the correct distance by using cosine.  
+
 
 ### Resources 
 
