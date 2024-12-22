@@ -39,14 +39,14 @@ void init_default_map(Map_T** map)
     }
 }
 
-void freeMap(Map_T *map)
+void free_map(Map_T *map)
 {
     if (map){
         free(map);
     }
 }
 
-void renderMap(Map_T *map, SDL_Renderer* renderer)
+void render_map(Map_T *map, SDL_Renderer* renderer)
 {
     // Check if map has been initalized
     if (map == NULL){

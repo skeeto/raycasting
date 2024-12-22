@@ -42,13 +42,13 @@ void move_player(Player_T *player, float dx, float dy, float delta_time);
  * 
  * @param player player to free
  */
-void freePlayer(Player_T *player);
+void free_player(Player_T *player);
 
 /**
  * Render the player on the SDL screen
  * 
  * @param player 
  */
-void renderPlayer(Player_T *player, SDL_Renderer *renderer);
+void render_player(Player_T *player, SDL_Renderer *renderer);
 
 #endif

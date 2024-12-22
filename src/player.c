@@ -33,14 +33,14 @@ void move_player(Player_T* player, float dx, float dy, float delta_time)
     player->y += dy * delta_time; 
 }
 
-void freePlayer(Player_T *player)
+void free_player(Player_T *player)
 {   
     if (player){
         free(player);
     }
 }
 
-void renderPlayer(Player_T *player, SDL_Renderer* renderer)
+void render_player(Player_T *player, SDL_Renderer* renderer)
 {
     // Check if player was not a null pointer
     if(!player){
@@ -51,11 +51,19 @@ void renderPlayer(Player_T *player, SDL_Renderer* renderer)
     // Create and render the player rectangle 
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_FRect player_rect = {
-        MINIMAP_SCALE* player->x,
-        MINIMAP_SCALE* player->y, 
-        MINIMAP_SCALE* player->width,
-        MINIMAP_SCALE* player->height
+        MINIMAP_SCALE * player->x,
+        MINIMAP_SCALE * player->y, 
+        MINIMAP_SCALE * player->width,
+        MINIMAP_SCALE * player->height
     };
     // Draw the rectangle itself
     SDL_RenderFillRectF(renderer, &player_rect);
+
+    // Render the direction where the player is looking at
+    SDL_RenderDrawLine(renderer, 
+        MINIMAP_SCALE * player->x,
+        MINIMAP_SCALE * player->y, 
+        MINIMAP_SCALE * player->x + cos(player->rotation_angle) * 40,
+        MINIMAP_SCALE * player->y + sin(player->rotation_angle) * 40
+    );
 }

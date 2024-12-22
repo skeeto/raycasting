@@ -20,7 +20,7 @@ void init_default_map(Map_T** map);
  * 
  * @param map map to be freed. 
  */
-void freeMap(Map_T* map);
+void free_map(Map_T* map);
 
 /**
  * Renders the given map on the SDL canvas.
@@ -28,7 +28,7 @@ void freeMap(Map_T* map);
  * @param map map to be rendered
  * @param renderer SDL renderer
  */
-void renderMap(Map_T* map, SDL_Renderer* renderer);
+void render_map(Map_T* map, SDL_Renderer* renderer);
 
 
 #endif

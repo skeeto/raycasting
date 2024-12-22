@@ -79,13 +79,13 @@ void render(){
     SDL_RenderClear(renderer);
 
     // Render map
-    renderMap(map, renderer);
+    render_map(map, renderer);
 
     // Render rays 
     //renderRays(&rays);
 
     // Render player 
-    renderPlayer(player, renderer);
+    render_player(player, renderer);
 
     // Rendering all game objects
     SDL_RenderPresent(renderer);
@@ -145,15 +145,15 @@ void update(){
     ticks_since_last_frame = SDL_GetTicks();
 
     // Update player state
-    //move_player(&player, 20, 20, dt);
+    move_player(&player, 2, 2, dt);
 }
 
 /**
  * Method to free all game object resources at the end of the game
  */
 void freeGameObjects(){
-    freeMap(map);
-    freePlayer(player);
+    free_map(map);
+    free_player(player);
 }
 
 
