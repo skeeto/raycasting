@@ -8,6 +8,9 @@ SDL_Window* window = NULL;
 // Renderer pointer
 SDL_Renderer* renderer = NULL; 
 
+// Global bool for the game loop
+int game_running; 
+
 /**
  * Method for initializing the window to render graphics.
  * 
@@ -56,18 +59,68 @@ void destroy_window(){
     SDL_Quit();
 }
 
+/**
+ * Render method for the raycast application. 
+ */
+void render(){
+    // Drawing a background color
+    SDL_SetRenderDrawColor(renderer, 0,0,0,255);
+    SDL_RenderClear(renderer);
+
+
+    // Rendering all game objects
+    SDL_RenderPresent(renderer);
+}
+
+/**
+ * Method for setting up the game objects
+ */
+void setup(){
+
+}
+
+void process_input(){
+    // Polling the newest events
+    SDL_Event event; 
+    SDL_PollEvent(&event);
+
+    // Handle each type of event 
+    switch (event.type){
+        case SDL_QUIT:
+            game_running = 0; 
+            break;
+        case SDL_KEYDOWN:
+            // ESC leads to quitting the game
+            if (event.key.keysym.sym == SDLK_ESCAPE) {
+                game_running = 0; 
+            }
+            break; 
+        default:
+            break;
+    }
+}
+
+
 int main(){
     // Initialize the window
-    int game_running = !init_window();
+    game_running = !init_window();
 
     // Setup of the window 
     setup();
 
     // Game loop
     while(game_running){
-        processInput();
-        update();
+        // Handle input 
+        process_input();
+
+        // Update the state
+        //update();
+
+        // Render the game
         render();
     }
+
+    // Exited the game
+    destroy_window();
     return 0;
 }
