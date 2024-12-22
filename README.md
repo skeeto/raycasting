@@ -133,6 +133,14 @@ We can also make walls have a bright and dark side. This happens when we have a 
 
 ![image](./img/bright_dark_wall.png)
 
+#### Walls with different colors
+
+Coloring walls can be solved in different ways. They all use the map. Here is the most simplest way to do it
+1. When you do ray casting, and a ray hits the wall, find out what the content of the map is on that wall
+2. Instead of using 1 for a wall, use another number that represent a color. 
+3. When you render the wall strip, use the number that represents a color, and render the strip in that color!
+
+![image](./img/colored_walls.png)
 
 ### Resources 
 
