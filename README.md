@@ -123,11 +123,15 @@ Here is the result of the rendered walls:
 > The walls are not straight. This effect is called the [fishbowl distortion](https://en.wikipedia.org/wiki/Fisheye_lens). This happens because the rays hit the walls at different distances. All the rays need to find the non-distorted distance. Our human eye has a natural round distortion. The fix is simple; since we know the distant distance and the angle, we can calculate the correct distance by using cosine.  
 
 
-#### Shading for the walls
+#### Shading the walls
 
 A simple improvement is to change the alpha of the wall strip, to give a better feeling of depth. When we move further away from the wall (distance becomes larger), we want alpha to become smaller. There is a lot of cool tricks out there to get the shading looking good. The key point here; there is an inverse relationship between the distance grows larger and the alpha becoming smaller. The result could look something like this: 
 
-![shading](./img/simple_shading.png)
+![image](./img/simple_shading.png)
+
+We can also make walls have a bright and dark side. This happens when we have a light source in the room. Then all walls on a certain side get a light color, while the other side gets a dark color. For the map, we can assume there is a light source thats high up and gives all our walls this effect: 
+
+![image](./img/bright_dark_wall.png)
 
 
 ### Resources 
