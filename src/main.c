@@ -20,7 +20,7 @@ float ticks_since_last_frame = 0.0f;
 Player_T player;  
 
 // Map that has details on the wall settings
-Map_T map; 
+Map_T* map = NULL; 
 
 /**
  * Method for initializing the window to render graphics.
@@ -79,13 +79,13 @@ void render(){
     SDL_RenderClear(renderer);
 
     // Render map
-    //renderMap(&map);
+    renderMap(map, renderer);
 
     // Render rays 
     //renderRays(&rays);
 
     // Render player 
-    renderPlayer(&player);
+    //renderPlayer(&player);
 
     // Rendering all game objects
     SDL_RenderPresent(renderer);
@@ -97,6 +97,7 @@ void render(){
 void setup(){
     // Set the initial player postion
     init_player(&player);
+    init_default_map(&map);
 }
 
 
@@ -151,7 +152,7 @@ void update(){
  * Method to free all game object resources at the end of the game
  */
 void freeGameObjects(){
-    freeMap(&map);
+    freeMap(map);
     freePlayer(&player);
 }
 
@@ -175,10 +176,10 @@ int main(){
         render();
     }
 
-    // Exited the game, free SDL resources
-    destroy_window();
-
     // Free all game objects
     freeGameObjects();
+
+    // Exited the game, free SDL resources
+    destroy_window();
     return 0;
 }
