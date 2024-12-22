@@ -1,6 +1,25 @@
 # Ray Casting in C
 Implementation of ray casting in C
 
+## Usage
+
+Install SDL 2 with: 
+```terminal
+sudo apt-get install libsdl2-dev
+```
+
+Compile the project with the make file: 
+```terminal
+make
+```
+
+Then run with make: 
+```terminal
+make run
+```
+
+(See the `Makefile` for extra rules)
+
 ## Theory behind Wolfstein 3D ray casting 
 
 The goal of the raycasting engine is simple. Given a 2D map, render the view of the player that is moving around in the map. At each step render a field of view that represents the view of the player. We use rays to figure out the distance between the wall and the player. If the distance is small, then the wall is closer. If the distance is larger, then the wall is further away. Based on the distance, we render a single column of the frame. The height of each wall depends on the distance. 
@@ -137,7 +156,7 @@ We can also make walls have a bright and dark side. This happens when we have a 
 #### Walls with different colors
 
 Coloring walls can be solved in different ways. They all use the map. Here is the most simplest way to do it
-1. Make the map contain information about color instead of 1 for wall (for instance 2 for color red)
+1. Make the map contain information about color instead of 1 for wall (for instance 2 for color red), and 0s
 2. Cast the ray and find out the content of the wall
 3. Render the strip with that color
 
