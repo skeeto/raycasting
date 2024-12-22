@@ -28,13 +28,58 @@ The algorithm for casting rays will then be:
 2. Loop over each column for the projection plane:
     - Cast a ray
     - Trace ray until it hits a wall (we assume that the player is in a box environment)
-    - If we hit a wall, store the distance between the wall and array
-    - Increment the angle such that we are ready to cast the next ray
+    - If we hit a wall, store the distance between the wall and the player
+    - Increment the angle for the next ray
 
 
-The image below shows the player with rays cast (not until wall hit).
+The image below shows the player with rays. It shows a 60 degree angle FOV. It is these rays we use to render the walls the player sees: 
 
 ![image](./img/cast_ray.png)
+
+
+### Wall hit Algorithm 
+
+Each ray have a direction from the player. If we continue to look in the given direction, we should eventually hit a wall.
+We could do this by going one pixel in X and Y in the direction of the ray. This would work, but it would be very slow. 
+We can use a simple trick for checking if there is a wall there. Instead of checking each pixel point, we only check the intersections. 
+This is very clever, and makes a lot of sense! There will not be a new wall in the middle of a tile, but there can be a new wall when we go from one tile to another. 
+This is why checking the intersections would be much more efficient.
+
+Wolfenstein 3D checks first horizontal intersections and then vertically. This project will do the same.
+If there is a wall on either horizontal or vertical intersections, we stop. We would get two distances from both horizontal and vertical intersections. 
+We pick the closest one as the point that is closest to the player.
+
+After finding the first intersection, the next intersection will be in the same distance away each time!
+This means we can find change in X and Y for the intersections, and just use them to move along the ray. The algorithm becomes;
+
+#### Horizontal intersections
+To find the intersection at point A given player position P and tile size T: 
+```math
+y_a = \lfloor (\frac{y_p}{T}) \rfloor * T 
+```
+
+```math
+x_a = x_p + \frac{y_a - y_p}{\tan \alpha} 
+```
+
+This is only the position of the first intersection (point A). The next position would be at given distance away, and we know that each intersection after this, would be in the same distance away for each step.
+The change in x and y that leads to the next intersection are called step; 
+
+```math
+\text{xstep} = \frac{T}{\tan \alpha}
+```
+
+The xstep is the change in x which we move in horizontally to find the next intersection. We look at each intersection.
+
+#### Vertical intersection
+
+The vertical intersection is almost the same: 
+
+```math
+\text{ystep} = \tan(\alpha) * T
+```
+
+> Note: after finding the points in the map, we need to convert them to indexes in the grid map to find out if we have a wall hit!
 
 
 ### Resources 
