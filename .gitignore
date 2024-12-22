@@ -55,3 +55,6 @@ dkms.conf
 # Git ignore the Javascript Prototype folder 
 # I wrote a draft in javascript first 
 javascript
+
+# Ignore the binary 
+raycast
