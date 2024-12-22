@@ -33,3 +33,8 @@ void init_default_map(Map_T *map)
     
     map = DEFAULT_MAP; 
 }
+
+void freeMap(Map_T *map)
+{
+    free(map);
+}
