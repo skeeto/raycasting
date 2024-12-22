@@ -178,3 +178,6 @@ https://lodev.org/cgtutor/raycasting.html
 
 Raycasting in C course by Pikuma.com: <br>
 https://pikuma.com/courses/raycasting-engine-tutorial-algorithm-javascript 
+
+SDL 2 Docs: <br>
+https://wiki.libsdl.org/SDL2/FrontPage 

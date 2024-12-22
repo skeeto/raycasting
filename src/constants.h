@@ -1,0 +1,2 @@
+#define WINDOW_WIDTH 800
+#define WINDOW_HIGHT 600
