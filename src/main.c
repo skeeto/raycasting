@@ -11,6 +11,12 @@ SDL_Renderer* renderer = NULL;
 // Global bool for the game loop
 int game_running; 
 
+// Player postion 
+float player_x, player_y;
+
+// Variable for keeping track of how many ticks since last frame
+float ticks_since_last_frame = 0.0f; 
+
 /**
  * Method for initializing the window to render graphics.
  * 
@@ -67,6 +73,10 @@ void render(){
     SDL_SetRenderDrawColor(renderer, 0,0,0,255);
     SDL_RenderClear(renderer);
 
+    // Render player 
+    const SDL_Rect rect = {player_x, player_y, 20, 20};
+    SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
+    SDL_RenderFillRect(renderer, &rect);
 
     // Rendering all game objects
     SDL_RenderPresent(renderer);
@@ -76,9 +86,15 @@ void render(){
  * Method for setting up the game objects
  */
 void setup(){
-
+    // Set the initial player postion
+    player_x = 0; 
+    player_y = 0; 
 }
 
+
+/**
+ * Process input such as key pressed or other IO input.
+ */
 void process_input(){
     // Polling the newest events
     SDL_Event event; 
@@ -100,6 +116,25 @@ void process_input(){
     }
 }
 
+/**
+ * Update the state of the game
+ */
+void update(){
+    // Wait until FPS is met
+    while(!SDL_TICKS_PASSED(SDL_GetTicks(), ticks_since_last_frame + FRAME_TIME_LENGTH)){}
+
+    // Delta time for making game objects move in pixels per second
+    // All game objects should use this for movement speed
+    float dt = (SDL_GetTicks() - ticks_since_last_frame) / 1000.0f;
+    
+    // Set ticks since last frame after storing 
+    ticks_since_last_frame = SDL_GetTicks();
+
+    // Update player state
+    player_x += 20 * dt; 
+    player_y += 20 * dt; 
+}
+
 
 int main(){
     // Initialize the window
@@ -114,7 +149,7 @@ int main(){
         process_input();
 
         // Update the state
-        //update();
+        update();
 
         // Render the game
         render();
