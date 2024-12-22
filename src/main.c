@@ -93,10 +93,14 @@ void render(){
     SDL_SetRenderDrawColor(renderer, 0,0,0,255);
     SDL_RenderClear(renderer);
 
+    // Render map
+    //renderMap(&map);
+
+    // Render rays 
+    //renderRays(&rays);
+
     // Render player 
-    const SDL_Rect rect = {player.x, player.y, 20, 20};
-    SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
-    SDL_RenderFillRect(renderer, &rect);
+    renderPlayer(&player);
 
     // Rendering all game objects
     SDL_RenderPresent(renderer);
@@ -125,7 +129,7 @@ void process_input(){
             game_running = 0; 
             break;
         case SDL_KEYDOWN:
-            // ESC leads to quitting the game
+            // ESC for quitting the game
             if (event.key.keysym.sym == SDLK_ESCAPE) {
                 game_running = 0; 
             }
@@ -158,6 +162,9 @@ void update(){
     move_player(&player, 20, 20, dt);
 }
 
+/**
+ * Method to free all game object resources at the end of the game
+ */
 void freeGameObjects(){
     freePlayer(&player);
 }
@@ -182,8 +189,7 @@ int main(){
         render();
     }
 
-
-    // Exited the game
+    // Exited the game, free SDL resources
     destroy_window();
 
     // Free all game objects

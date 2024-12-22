@@ -20,7 +20,7 @@ make run
 
 (See the `Makefile` for extra rules)
 
-## Theory behind Wolfstein 3D ray casting 
+## Theory behind Wolfstein 3D Ray Casting 
 
 The goal of the raycasting engine is simple. Given a 2D map, render the view of the player that is moving around in the map. At each step render a field of view that represents the view of the player. We use rays to figure out the distance between the wall and the player. If the distance is small, then the wall is closer. If the distance is larger, then the wall is further away. Based on the distance, we render a single column of the frame. The height of each wall depends on the distance. 
 

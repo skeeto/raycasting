@@ -38,3 +38,8 @@ void freePlayer(Player_T *player)
         free(player);
     }
 }
+
+void renderPlayer(Player_T *player)
+{
+    // Render
+}
