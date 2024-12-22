@@ -121,7 +121,13 @@ void process_input(){
  */
 void update(){
     // Wait until FPS is met
-    while(!SDL_TICKS_PASSED(SDL_GetTicks(), ticks_since_last_frame + FRAME_TIME_LENGTH)){}
+    // We use SDL Delay: https://wiki.libsdl.org/SDL2/SDL_Delay 
+    // Makes the CPU more available
+    int delay = FRAME_TIME_LENGTH - (SDL_GetTicks() - ticks_since_last_frame);
+    if (delay > 0 && delay <= FRAME_TIME_LENGTH){
+        SDL_Delay(delay);
+    }
+
 
     // Delta time for making game objects move in pixels per second
     // All game objects should use this for movement speed
