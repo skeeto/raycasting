@@ -107,52 +107,57 @@ void setup(){
 void process_input(){
     // Polling the newest events
     SDL_Event event; 
-    SDL_PollEvent(&event);
-
-    // Handle each type of event 
-    switch (event.type){
-        case SDL_QUIT:
-            game_running = 0; 
-            break;
-        case SDL_KEYDOWN:
-            // ESC for quitting the game
-            if (event.key.keysym.sym == SDLK_ESCAPE) {
+    
+    // Poll events with while loop
+    // This fixes the bug where the player does not seem to react to KEY_UP events
+    // Handle all events per frame
+    // DOCS: https://wiki.libsdl.org/SDL2/SDL_PollEvent
+    while(SDL_PollEvent(&event)){
+        // Handle each type of event 
+        switch (event.type){
+            case SDL_QUIT:
                 game_running = 0; 
-            }
+                break;
+            case SDL_KEYDOWN:
+                // ESC for quitting the game
+                if (event.key.keysym.sym == SDLK_ESCAPE) {
+                    game_running = 0; 
+                }
 
-            // WSAD for walking the player
-            if (event.key.keysym.sym == SDLK_w) {
-                player->walk_direction = 1;  
-            }
-            if (event.key.keysym.sym == SDLK_s) {
-                player->walk_direction = -1; 
-            }
-            if (event.key.keysym.sym == SDLK_d) {
-                player->turn_direction = 1; 
-            }
-            if (event.key.keysym.sym == SDLK_a) {
-                player->turn_direction = -1; 
-            }
-            break; 
+                // WSAD for walking the player
+                if (event.key.keysym.sym == SDLK_w) {
+                    player->walk_direction = 1;  
+                }
+                if (event.key.keysym.sym == SDLK_s) {
+                    player->walk_direction = -1; 
+                }
+                if (event.key.keysym.sym == SDLK_d) {
+                    player->turn_direction = 1; 
+                }
+                if (event.key.keysym.sym == SDLK_a) {
+                    player->turn_direction = -1; 
+                }
+                break; 
 
-        case SDL_KEYUP:
-            // WASD for walking the player
-            if (event.key.keysym.sym == SDLK_w) {
-                player->walk_direction = 0;  
-            }
-            if (event.key.keysym.sym == SDLK_s) {
-                player->walk_direction = 0; 
-            }
-            if (event.key.keysym.sym == SDLK_d) {
-                player->turn_direction = 0; 
-            }
-            if (event.key.keysym.sym == SDLK_a) {
-                player->turn_direction = 0; 
-            }
-            break; 
-        default:
-            break;
-    }
+            case SDL_KEYUP:
+                // WASD for walking the player
+                if (event.key.keysym.sym == SDLK_w) {
+                    player->walk_direction = 0;  
+                }
+                if (event.key.keysym.sym == SDLK_s) {
+                    player->walk_direction = 0; 
+                }
+                if (event.key.keysym.sym == SDLK_d) {
+                    player->turn_direction = 0; 
+                }
+                if (event.key.keysym.sym == SDLK_a) {
+                    player->turn_direction = 0; 
+                }
+                break; 
+            default:
+                break;
+        }
+    }    
 }
 
 /**
