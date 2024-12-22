@@ -69,13 +69,13 @@ void renderMap(Map_T *map, SDL_Renderer* renderer)
             SDL_SetRenderDrawColor(renderer, tile_color, tile_color, tile_color, 255);
             
             // Create the tile and render it
-            SDL_Rect rect = {
-                (int) MINIMAP_SCALE * tile_x, 
-                (int) MINIMAP_SCALE * tile_y,
-                (int) MINIMAP_SCALE * TILE_SIZE,
-                (int) MINIMAP_SCALE * TILE_SIZE
+            SDL_FRect rect = {
+                MINIMAP_SCALE * tile_x, 
+                MINIMAP_SCALE * tile_y,
+                MINIMAP_SCALE * TILE_SIZE,
+                MINIMAP_SCALE * TILE_SIZE
             };
-            SDL_RenderFillRect(renderer, &rect);
+            SDL_RenderFillRectF(renderer, &rect);
         }
     }
 }
