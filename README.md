@@ -3,17 +3,17 @@ Implementation of ray casting in C
 
 ## Usage
 
-Install SDL 2 with: 
+1. Make sure SDL2 is installed. Install command for Linux:  
 ```terminal
 sudo apt-get install libsdl2-dev
 ```
 
-Compile the project with the make file: 
+2. Compile the code using the provided Makefile: 
 ```terminal
 make
 ```
 
-Then run with make: 
+3. Start the application using the run rule in the Makefile: 
 ```terminal
 make run
 ```
