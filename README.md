@@ -123,6 +123,13 @@ Here is the result of the rendered walls:
 > The walls are not straight. This effect is called the [fishbowl distortion](https://en.wikipedia.org/wiki/Fisheye_lens). This happens because the rays hit the walls at different distances. All the rays need to find the non-distorted distance. Our human eye has a natural round distortion. The fix is simple; since we know the distant distance and the angle, we can calculate the correct distance by using cosine.  
 
 
+#### Shading for the walls
+
+A simple improvement is to change the alpha of the wall strip, to give a better feeling of depth. When we move further away from the wall (distance becomes larger), we want alpha to become smaller. There is a lot of cool tricks out there to get the shading looking good. The key point here; there is an inverse relationship between the distance grows larger and the alpha becoming smaller. The result could look something like this: 
+
+![shading](./img/simple_shading.png)
+
+
 ### Resources 
 
 Ray casting: <br>
