@@ -83,13 +83,14 @@ All these steps form the DDA algorithm!
 
 > Note: after finding the points in the map, we need to convert them to indexes in the grid map to find out if we have a wall hit!
 
-
 The result: 
 
 ![image](./img/rays_hitting_wall.png)
+
 (With few rays)
 
 ![image](./img/rays_hitting_wall_many.png)
+
 (With a lot of rays. Easy to see where the rays hit the wall)
 
 
@@ -104,12 +105,12 @@ The projected wall height is formulated by using the known distance between the 
 Wall projection size is calculated by using triangle similarity to the actual wall. Given the actual wall size, the distance (calculated when we cast the ray), and the distance between the projection plane and the player: 
 
 ```math
-W_\text{Projected} = \frac{W_\text{actual}}{D_{r}} * \text{D_\text{projection plane}}
+W_{\text{Projected}} = (W_{\text{actual}} / D_r) * D_{\text{Projection Plane}}
 ```
 
 The distance between the projection plane and the player is: 
 ```math
-\text{D_{projection plane}} = \frac{\frac{\text{WINDOW_WIDHT}}{2}}{\tan(\frac{FOV_ANGLE / 2})}
+D_{\text{Projection Plane}} = \frac{\frac{\text{WINDOW WIDHT}}{2}}{\tan(\frac{\text{FOV ANGLE}}{2})}
 ```
 
 This makes sense logically. As we go further away, the ray cast distance increase, which leads to a smaller wall. I.e the wall gets smaller as we move further away. 
