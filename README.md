@@ -79,8 +79,18 @@ The vertical intersection is almost the same:
 \text{ystep} = \tan(\alpha) * T
 ```
 
+All these steps form the DDA algorithm!
+
 > Note: after finding the points in the map, we need to convert them to indexes in the grid map to find out if we have a wall hit!
 
+
+The result: 
+
+![image](./img/rays_hitting_wall.png)
+(With few rays)
+
+![image](./img/rays_hitting_wall_many.png)
+(With a lot of rays. Easy to see where the rays hit the wall)
 
 ### Resources 
 
@@ -89,3 +99,12 @@ https://en.wikipedia.org/wiki/Ray_casting
 
 Wolfenstein 3D: <br>
 https://en.wikipedia.org/wiki/Wolfenstein_3D
+
+DDA Algorithm: <br>
+https://en.wikipedia.org/wiki/Digital_differential_analyzer_(graphics_algorithm)
+
+Lodes Computer Graphic Tutorial: <br>
+https://lodev.org/cgtutor/raycasting.html 
+
+Raycasting in C course by Pikuma.com: <br>
+https://pikuma.com/courses/raycasting-engine-tutorial-algorithm-javascript 
