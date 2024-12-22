@@ -119,6 +119,36 @@ void process_input(){
             if (event.key.keysym.sym == SDLK_ESCAPE) {
                 game_running = 0; 
             }
+
+            // WSAD for walking the player
+            if (event.key.keysym.sym == SDLK_w) {
+                player->walk_direction = 1;  
+            }
+            if (event.key.keysym.sym == SDLK_s) {
+                player->walk_direction = -1; 
+            }
+            if (event.key.keysym.sym == SDLK_d) {
+                player->turn_direction = 1; 
+            }
+            if (event.key.keysym.sym == SDLK_a) {
+                player->turn_direction = -1; 
+            }
+            break; 
+
+        case SDL_KEYUP:
+            // WASD for walking the player
+            if (event.key.keysym.sym == SDLK_w) {
+                player->walk_direction = 0;  
+            }
+            if (event.key.keysym.sym == SDLK_s) {
+                player->walk_direction = 0; 
+            }
+            if (event.key.keysym.sym == SDLK_d) {
+                player->turn_direction = 0; 
+            }
+            if (event.key.keysym.sym == SDLK_a) {
+                player->turn_direction = 0; 
+            }
             break; 
         default:
             break;
@@ -145,7 +175,7 @@ void update(){
     ticks_since_last_frame = SDL_GetTicks();
 
     // Update player state
-    move_player(&player, 2, 2, dt);
+    move_player(player, dt);
 }
 
 /**

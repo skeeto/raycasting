@@ -17,21 +17,29 @@ void init_player(Player_T **player)
     (*player)->y = WINDOW_HEIGHT / 2;  
     (*player)->width = 5;
     (*player)->height = 5; 
-    (*player)->is_facing_left = 0; 
+    (*player)->turn_direction = 0; 
     (*player)->walk_direction = 0; 
     (*player)->rotation_angle = PI / 2; 
     (*player)->walk_speed = 100; 
     (*player)->rotation_speed = 45 * (PI / 180);
 }
 
-void move_player(Player_T* player, float dx, float dy, float delta_time)
+void move_player(Player_T* player, float delta_time)
 {   
-    if(player == NULL){
-        return;
-    }
-    player->x += dx * delta_time; 
-    player->y += dy * delta_time; 
-}
+    // Makes the player able to rotate
+    player->rotation_angle += player->turn_direction*player->rotation_speed * delta_time;
+
+    // Moves the player in a direction on the axis
+    const float movestep = player->walk_direction * player->walk_speed * delta_time;
+    
+    // Calculate the new x and y positions 
+    float new_x = player->x + cos(player->rotation_angle) * movestep; 
+    float new_y = player->y + sin(player->rotation_angle) * movestep;
+
+    // Set new x and y postion for the player
+    player->x = new_x;
+    player->y = new_y; 
+}   
 
 void free_player(Player_T *player)
 {   

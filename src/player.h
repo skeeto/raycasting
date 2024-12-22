@@ -11,7 +11,7 @@ typedef struct Player{
     float y; 
     float width; 
     float height; 
-    int is_facing_left; 
+    int turn_direction; 
     int walk_direction; 
     float rotation_angle;
     float walk_speed; 
@@ -28,14 +28,15 @@ typedef struct Player{
 void init_player(Player_T **player);
 
 /**
- * Method for moving a player in X and Y
+ * Method for moving a player
+ * 
+ * Will also rotate the player and move the player.
+ * Uses ows state to termin if we are going to move or not.  
  * 
  * @param player the player to be moved
- * @param dx change in x direction
- * @param dy change in y direction
  * @param delta_time delta time to make the move be dependent on the rendering rate
  */
-void move_player(Player_T *player, float dx, float dy, float delta_time);
+void move_player(Player_T *player, float delta_time);
 
 /**
  * De allocate the player
