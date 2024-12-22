@@ -13,7 +13,7 @@
 
 // Window size 
 #define WINDOW_WIDTH (TILE_SIZE * COLS)
-#define WINDOW_HIGHT (TILE_SIZE * ROWS)
+#define WINDOW_HEIGHT (TILE_SIZE * ROWS)
 
 // Field of view in radians 
 #define FOV_ANGLE (60 * (PI / 180))

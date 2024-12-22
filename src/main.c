@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <SDL2/SDL.h>
 #include "constants.h"
+#include "player.h"
 
 // Window pointer 
 SDL_Window* window = NULL;
@@ -11,11 +12,11 @@ SDL_Renderer* renderer = NULL;
 // Global bool for the game loop
 int game_running; 
 
-// Player postion 
-float player_x, player_y;
-
 // Variable for keeping track of how many ticks since last frame
 float ticks_since_last_frame = 0.0f; 
+
+// Player that walks in the ray cast simulation
+Player_T player;  
 
 // Map where
 // - 1 represent a wall
@@ -53,7 +54,7 @@ int init_window(){
         SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED, 
         WINDOW_WIDTH, 
-        WINDOW_HIGHT, 
+        WINDOW_HEIGHT, 
         SDL_WINDOW_BORDERLESS
     );
     if(!window){
@@ -93,7 +94,7 @@ void render(){
     SDL_RenderClear(renderer);
 
     // Render player 
-    const SDL_Rect rect = {player_x, player_y, 20, 20};
+    const SDL_Rect rect = {player.x, player.y, 20, 20};
     SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
     SDL_RenderFillRect(renderer, &rect);
 
@@ -106,8 +107,7 @@ void render(){
  */
 void setup(){
     // Set the initial player postion
-    player_x = 0; 
-    player_y = 0; 
+    init_player(&player);
 }
 
 
@@ -155,8 +155,11 @@ void update(){
     ticks_since_last_frame = SDL_GetTicks();
 
     // Update player state
-    player_x += 20 * dt; 
-    player_y += 20 * dt; 
+    move_player(&player, 20, 20, dt);
+}
+
+void freeGameObjects(){
+    freePlayer(&player);
 }
 
 
@@ -179,7 +182,11 @@ int main(){
         render();
     }
 
+
     // Exited the game
     destroy_window();
+
+    // Free all game objects
+    freeGameObjects();
     return 0;
 }
