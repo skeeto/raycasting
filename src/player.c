@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <SDL2/SDL.h>
+#include "map.h"
 
 void init_player(Player_T **player)
 {
@@ -24,7 +25,7 @@ void init_player(Player_T **player)
     (*player)->rotation_speed = 45 * (PI / 180);
 }
 
-void move_player(Player_T* player, float delta_time)
+void move_player(Player_T* player, Map_T* map, float delta_time)
 {   
     // Makes the player able to rotate
     player->rotation_angle += player->turn_direction*player->rotation_speed * delta_time;
@@ -37,8 +38,10 @@ void move_player(Player_T* player, float delta_time)
     float new_y = player->y + sin(player->rotation_angle) * movestep;
 
     // Set new x and y postion for the player
-    player->x = new_x;
-    player->y = new_y; 
+    if (!contains_wall(map, new_x, new_y)){
+        player->x = new_x;
+        player->y = new_y; 
+    }
 }   
 
 void free_player(Player_T *player)

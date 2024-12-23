@@ -180,7 +180,7 @@ void update(){
     ticks_since_last_frame = SDL_GetTicks();
 
     // Update player state
-    move_player(player, dt);
+    move_player(player, map, dt);
 }
 
 /**
@@ -214,7 +214,7 @@ int main(){
     // Free all game objects
     freeGameObjects();
 
-    // Exited the game, free SDL resources
+    // Free SDL resources
     destroy_window();
     return 0;
 }

@@ -1,4 +1,5 @@
 #include <SDL2/SDL.h>
+#include "map.h"
 
 #ifndef PLAYER_H
 #define PLAYER_H
@@ -36,7 +37,7 @@ void init_player(Player_T **player);
  * @param player the player to be moved
  * @param delta_time delta time to make the move be dependent on the rendering rate
  */
-void move_player(Player_T *player, float delta_time);
+void move_player(Player_T *player, Map_T *map, float delta_time);
 
 /**
  * De allocate the player
