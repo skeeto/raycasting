@@ -162,7 +162,27 @@ Coloring walls can be solved in different ways. They all use the map. Here is th
 
 ![image](./assets/github/colored_walls.png)
 
-### Resources 
+### Color Buffer for improved rendering in C
+
+A color buffer is a representation of every pixel that are going to rendered in the next frame. This buffer is in memory. This was not always the case. Older computers like the Atari, did not have enough memory for the color buffer.
+
+In C, we can define the color buffer like this: 
+```c
+Uint32 *color_buffer;
+```
+
+The pointer points to the first element in the color buffer. Each element represent a color with hexadecimal. This buffer needs to be allocated, which has to make space for the whole screen. The amount of bytes needed, is then the size of a hexadecimal number for each pixel in the screen.
+
+The allocation looks like this:
+```c
+color_buffer = (Uint32 *) malloc(sizeof(Uint32) * (Uint32)WINDOW_WIDTH * (Uint32)WINDOW_HIGHT)
+```
+
+Two change the color of the next frame, we access this buffer, and change the hexadecimal number at the given index. 
+
+When we have done the changes that we want, we can simply copy the buffer to an `SDL_Texture`, and then SDL uses the texture for rendering the color buffer!
+
+## Resources 
 
 Ray casting: <br>
 https://en.wikipedia.org/wiki/Ray_casting
@@ -181,3 +201,6 @@ https://pikuma.com/courses/raycasting-engine-tutorial-algorithm-javascript
 
 SDL 2 Docs: <br>
 https://wiki.libsdl.org/SDL2/FrontPage 
+
+Stencil buffer (or color buffer): <br>
+https://en.wikipedia.org/wiki/Stencil_buffer
