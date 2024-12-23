@@ -1,8 +1,9 @@
 #include "ray.h"
 #include "help_functions.h"
 #include <limits.h>
+#include <SDL2/SDL.h>
 
-void init_rays(Ray_T **rays[RAY_COUNT]) {
+void init_rays(Ray_T *rays[RAY_COUNT]) {
     for (int i = 0; i < RAY_COUNT; i++) {
         rays[i] = malloc(sizeof(Ray_T));
         if (!rays[i]) {
@@ -12,7 +13,7 @@ void init_rays(Ray_T **rays[RAY_COUNT]) {
     }
 }
 
-void free_rays(Ray_T **rays[RAY_COUNT]) {
+void free_rays(Ray_T *rays[RAY_COUNT]) {
     for (int i = 0; i < RAY_COUNT; i++) {
         if (rays[i]) {
             free(rays[i]);
@@ -178,5 +179,16 @@ void cast_rays(Ray_T **rays[RAY_COUNT], Map_T *map, Player_T *player)
 
         // Increment the ray angle for allowing the next angle to be cast
         current_ray_angle += FOV_ANGLE / RAY_COUNT;
+    }
+}
+
+void render_rays(Ray_T *rays[RAY_COUNT], SDL_Renderer *renderer, Player_T* player)
+{
+    // Set the color for the ray
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+    
+    // Loop over each ray and render it
+    for (int i = 0; i < RAY_COUNT; i++){
+        SDL_RenderDrawLineF(renderer, MINIMAP_SCALE * player->x, MINIMAP_SCALE * player->y, MINIMAP_SCALE * rays[i]->wall_hit_x, MINIMAP_SCALE * rays[i]->wall_hit_y);
     }
 }

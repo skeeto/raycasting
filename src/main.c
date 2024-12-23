@@ -24,7 +24,7 @@ Player_T *player = NULL;
 Map_T *map = NULL; 
 
 // List of all rays 
-Ray_T rays[RAY_COUNT];
+Ray_T *rays[RAY_COUNT];
 
 /**
  * Method for initializing the window to render graphics.
@@ -86,7 +86,7 @@ void render(){
     render_map(map, renderer);
 
     // Render rays 
-    //renderRays(&rays);
+    render_rays(rays, renderer, player);
 
     // Render player 
     render_player(player, renderer);
@@ -102,6 +102,7 @@ void setup(){
     // Set the initial player postion
     init_player(&player);
     init_default_map(&map);
+    init_rays(rays);
 }
 
 
@@ -196,6 +197,7 @@ void update(){
 void freeGameObjects(){
     free_map(map);
     free_player(player);
+    free_rays(rays);
 }
 
 

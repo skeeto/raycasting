@@ -23,21 +23,19 @@ typedef struct Ray
     int wall_hit_content; 
 } Ray_T;
 
-
-
 /**
  * Allocates memory for the rays list 
  * 
  * @param rays rays to be renders
  */
-void init_rays(Ray_T **rays[RAY_COUNT]);
+void init_rays(Ray_T *rays[RAY_COUNT]);
 
 /**
  * De allocates memory for the rays list 
  * 
  * @param rays rays array to be freed
  */
-void free_rays(Ray_T **rays[RAY_COUNT]);
+void free_rays(Ray_T *rays[RAY_COUNT]);
 
 /**
  * Cast a ray on the given map from the given player, and set the ray struct in the array list of rays.
@@ -58,5 +56,8 @@ void cast_ray(Ray_T **rays[RAY_COUNT], Map_T *map, Player_T *player, float ray_a
  * @param player the player from which we cast all rays
  */
 void cast_rays(Ray_T **rays[RAY_COUNT], Map_T *map, Player_T *player);
+
+
+void render_rays(Ray_T *rays[RAY_COUNT], SDL_Renderer *renderer, Player_T* player);
 
 #endif 
