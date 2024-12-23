@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <SDL2/SDL.h>
 #include "constants.h"
+#include "ray.h"
 #include "player.h"
 #include "map.h"
 
@@ -21,6 +22,9 @@ Player_T *player = NULL;
 
 // Map that has details on the wall settings
 Map_T *map = NULL; 
+
+// List of all rays 
+Ray_T rays[RAY_COUNT];
 
 /**
  * Method for initializing the window to render graphics.
@@ -181,6 +185,9 @@ void update(){
 
     // Update player state
     move_player(player, map, dt);
+
+    // Cast all rays
+    //cast_all_rays();
 }
 
 /**

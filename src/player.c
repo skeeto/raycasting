@@ -38,7 +38,7 @@ void move_player(Player_T* player, Map_T* map, float delta_time)
     float new_y = player->y + sin(player->rotation_angle) * movestep;
 
     // Set new x and y postion for the player
-    if (!contains_wall(map, new_x, new_y)){
+    if (!wall_content(map, new_x, new_y)){
         player->x = new_x;
         player->y = new_y; 
     }

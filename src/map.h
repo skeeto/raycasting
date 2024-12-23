@@ -41,7 +41,7 @@ void render_map(Map_T *map, SDL_Renderer *renderer);
  * @param y the given y position
  * @return int return 0 if no wall hit or 1 if there is a wall hit
  */
-int contains_wall(Map_T *map, float x, float y);
+int wall_content(Map_T *map, float x, float y);
 
 
 #endif
