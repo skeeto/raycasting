@@ -1,24 +1,26 @@
 #include "ray.h"
-#include "help_functions.c"
+#include "help_functions.h"
 #include <limits.h>
 
-void init_rays(Ray_T *rays[RAY_COUNT])
-{
-    rays = malloc(sizeof(Ray_T) * RAY_COUNT);
-    if (!rays){
-        fprintf(stderr, "Could not allocate memory for the list of rays\n");
-        exit(1);
+void init_rays(Ray_T **rays[RAY_COUNT]) {
+    for (int i = 0; i < RAY_COUNT; i++) {
+        rays[i] = malloc(sizeof(Ray_T));
+        if (!rays[i]) {
+            fprintf(stderr, "Could not allocate memory for ray %d\n", i);
+            exit(1);
+        }
     }
 }
 
-void free_rays(Ray_T *rays[RAY_COUNT])
-{
-    if(rays){
-        free(rays);
+void free_rays(Ray_T **rays[RAY_COUNT]) {
+    for (int i = 0; i < RAY_COUNT; i++) {
+        if (rays[i]) {
+            free(rays[i]);
+        }
     }
 }
 
-void cast_ray(Ray_T *rays[RAY_COUNT], Map_T *map, Player_T *player, float ray_angle, int strip_numb)
+void cast_ray(Ray_T **rays[RAY_COUNT], Map_T *map, Player_T *player, float ray_angle, int strip_numb)
 {   
 
     // Normalize the given angle 
@@ -139,26 +141,26 @@ void cast_ray(Ray_T *rays[RAY_COUNT], Map_T *map, Player_T *player, float ray_an
     // Use the smallest distance to set make the ray struct and set it in the ray list
     if (vertical_hit_distance < horizontal_hit_distance){
         // Vertical wall hit was the first wall that we found
-        rays[strip_numb]->distance = vertical_hit_distance; 
-        rays[strip_numb]->wall_hit_x = vertical_wall_hit_x;
-        rays[strip_numb]->wall_hit_y = vertical_wall_hit_y;
-        rays[strip_numb]->wall_hit_content = vertical_wall_content;
-        rays[strip_numb]->was_hit_vertical = 1; 
+        (*rays[strip_numb])->distance = vertical_hit_distance; 
+        (*rays[strip_numb])->wall_hit_x = vertical_wall_hit_x;
+        (*rays[strip_numb])->wall_hit_y = vertical_wall_hit_y;
+        (*rays[strip_numb])->wall_hit_content = vertical_wall_content;
+        (*rays[strip_numb])->was_hit_vertical = 1; 
     }else{
         // Horizontal wall hit was the first wall that we found 
-        rays[strip_numb]->distance = horizontal_hit_distance; 
-        rays[strip_numb]->wall_hit_x = horizontal_wall_hit_x;
-        rays[strip_numb]->wall_hit_y = horizontal_wall_hit_y;
-        rays[strip_numb]->wall_hit_content = horizontal_wall_content;
-        rays[strip_numb]->was_hit_vertical = 0; 
+        (*rays[strip_numb])->distance = horizontal_hit_distance; 
+        (*rays[strip_numb])->wall_hit_x = horizontal_wall_hit_x;
+        (*rays[strip_numb])->wall_hit_y = horizontal_wall_hit_y;
+        (*rays[strip_numb])->wall_hit_content = horizontal_wall_content;
+        (*rays[strip_numb])->was_hit_vertical = 0; 
     }
 
     // Set the common fields for the ray struct
-    rays[strip_numb]->ray_angle = ray_angle;
-    rays[strip_numb]->is_ray_pointing_down = is_ray_pointing_down;
-    rays[strip_numb]->is_ray_pointing_up = is_ray_pointing_up;
-    rays[strip_numb]->is_ray_pointing_left = is_ray_pointing_left;
-    rays[strip_numb]->is_ray_pointing_right = is_ray_pointing_right;
+    (*rays[strip_numb])->ray_angle = ray_angle;
+    (*rays[strip_numb])->is_ray_pointing_down = is_ray_pointing_down;
+    (*rays[strip_numb])->is_ray_pointing_up = is_ray_pointing_up;
+    (*rays[strip_numb])->is_ray_pointing_left = is_ray_pointing_left;
+    (*rays[strip_numb])->is_ray_pointing_right = is_ray_pointing_right;
 
 }
 
