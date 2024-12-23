@@ -4,6 +4,7 @@
 #include "ray.h"
 #include "player.h"
 #include "map.h"
+#include "color_buffer.h"
 
 // Window pointer 
 SDL_Window* window = NULL;
@@ -28,6 +29,9 @@ Ray_T *rays[RAY_COUNT];
 
 // Color buffer pointer 
 Uint32 *color_buffer = NULL; 
+
+// Color buffer texture 
+SDL_Texture *color_buffer_texture; 
 
 /**
  * Method for initializing the window to render graphics.
@@ -85,6 +89,12 @@ void render(){
     SDL_SetRenderDrawColor(renderer, 0,0,0,255);
     SDL_RenderClear(renderer);
 
+    // Render color buffer
+    render_color_buffer(renderer, color_buffer, color_buffer_texture);
+
+    // Fill color buffer with color
+    fill_color_buffer(color_buffer, 0xFF000000);
+
     // Render map
     render_map(map, renderer);
 
@@ -102,10 +112,25 @@ void render(){
  * Method for setting up the game objects
  */
 void setup(){
+    // Allocate color buffer
+    malloc_color_buffer(&color_buffer);
+
     // Set the initial player postion
     init_player(&player);
     init_default_map(&map);
     init_rays(rays);
+
+    // Create the color buffer SDL texture
+    // Allows the renderer to use the texture as a stream
+    color_buffer_texture = SDL_CreateTexture(
+        renderer,
+        SDL_PIXELFORMAT_ARGB8888,
+        SDL_TEXTUREACCESS_STREAMING,
+        WINDOW_WIDTH,
+        WINDOW_HEIGHT
+    );
+
+    
 }
 
 
@@ -198,6 +223,7 @@ void update(){
  * Method to free all game object resources at the end of the game
  */
 void freeGameObjects(){
+    free_color_buffer(color_buffer);
     free_map(map);
     free_player(player);
     free_rays(rays);
