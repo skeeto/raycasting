@@ -19,3 +19,5 @@
 // Field of view in radians 
 #define FOV_ANGLE (60 * (PI / 180))
 
+// Amount of rays to cast
+#define RAY_COUNT 30
