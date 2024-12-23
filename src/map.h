@@ -43,5 +43,7 @@ void render_map(Map_T *map, SDL_Renderer *renderer);
  */
 int wall_content(Map_T *map, float x, float y);
 
+int has_wall_at(Map_T *map, float x, float y);
+
 
 #endif

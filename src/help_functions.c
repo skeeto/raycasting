@@ -8,7 +8,7 @@ float normalize_angle(float angle){
 
     // Handle the case when the angle becomes negative
     if (angle < 0){
-        angle += TWO_PI;
+        angle = TWO_PI + angle;
     }
 
     return angle; 

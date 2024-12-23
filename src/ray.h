@@ -46,7 +46,7 @@ void free_rays(Ray_T *rays[RAY_COUNT]);
  * @param ray_angle the angle the ray currently have
  * @param strip_numb the column strip id, used as a index to place the ray in the ray list
  */
-void cast_ray(Ray_T **rays[RAY_COUNT], Map_T *map, Player_T *player, float ray_angle, int strip_numb);
+void cast_ray(Ray_T *rays[RAY_COUNT], Map_T *map, Player_T *player, float ray_angle, int strip_numb);
 
 /**
  * Method that casts all the rays from the given player position
@@ -55,7 +55,7 @@ void cast_ray(Ray_T **rays[RAY_COUNT], Map_T *map, Player_T *player, float ray_a
  * @param map map to cast the rays in
  * @param player the player from which we cast all rays
  */
-void cast_rays(Ray_T **rays[RAY_COUNT], Map_T *map, Player_T *player);
+void cast_rays(Ray_T *rays[RAY_COUNT], Map_T *map, Player_T *player);
 
 
 void render_rays(Ray_T *rays[RAY_COUNT], SDL_Renderer *renderer, Player_T* player);

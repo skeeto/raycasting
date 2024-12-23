@@ -4,6 +4,10 @@
 #include <SDL2/SDL.h>
 
 void init_rays(Ray_T *rays[RAY_COUNT]) {
+    if (RAY_COUNT <= 0) {
+        fprintf(stderr, "Invalid ray count\n");
+        exit(1);
+    }
     for (int i = 0; i < RAY_COUNT; i++) {
         rays[i] = malloc(sizeof(Ray_T));
         if (!rays[i]) {
@@ -21,7 +25,7 @@ void free_rays(Ray_T *rays[RAY_COUNT]) {
     }
 }
 
-void cast_ray(Ray_T **rays[RAY_COUNT], Map_T *map, Player_T *player, float ray_angle, int strip_numb)
+void cast_ray(Ray_T *rays[RAY_COUNT], Map_T *map, Player_T *player, float ray_angle, int strip_numb)
 {   
 
     // Normalize the given angle 
@@ -70,7 +74,7 @@ void cast_ray(Ray_T **rays[RAY_COUNT], Map_T *map, Player_T *player, float ray_a
         float y_to_check = next_horizontal_wall_hit_y + (is_ray_pointing_up ? -1 : 0);
 
         float grid_content = wall_content(map, x_to_check, y_to_check);
-        if (grid_content != 0){
+        if (has_wall_at(map, x_to_check, y_to_check)){
             // Found a wall
             // Mark this wall hit
             found_horizontal_wall = 1; 
@@ -97,15 +101,15 @@ void cast_ray(Ray_T **rays[RAY_COUNT], Map_T *map, Player_T *player, float ray_a
     x_intercept = floor(player->x / TILE_SIZE) * TILE_SIZE;
     x_intercept +=  is_ray_pointing_right ? TILE_SIZE : 0.0; 
 
-    y_intercept = player->y + (x_intercept - player->x) / tan(ray_angle);
+    y_intercept = player->y + (x_intercept - player->x) * tan(ray_angle);
 
     // Find the step
     x_step = TILE_SIZE; 
     x_step *= is_ray_pointing_left ? -1.0 : 1.0; 
 
-    y_step = TILE_SIZE / tan(ray_angle);
-    y_step *= (is_ray_pointing_up && x_step > 0) ? -1.0 : 1.0; 
-    y_step *= (is_ray_pointing_down && x_step < 0) ? -1.0 : 1.0;
+    y_step = TILE_SIZE * tan(ray_angle);
+    y_step *= (is_ray_pointing_up && y_step > 0) ? -1.0 : 1.0; 
+    y_step *= (is_ray_pointing_down && y_step < 0) ? -1.0 : 1.0;
 
     // Calculate the next intercept for the horizontal lines
     float next_vertical_wall_hit_x = x_intercept;
@@ -142,30 +146,30 @@ void cast_ray(Ray_T **rays[RAY_COUNT], Map_T *map, Player_T *player, float ray_a
     // Use the smallest distance to set make the ray struct and set it in the ray list
     if (vertical_hit_distance < horizontal_hit_distance){
         // Vertical wall hit was the first wall that we found
-        (*rays[strip_numb])->distance = vertical_hit_distance; 
-        (*rays[strip_numb])->wall_hit_x = vertical_wall_hit_x;
-        (*rays[strip_numb])->wall_hit_y = vertical_wall_hit_y;
-        (*rays[strip_numb])->wall_hit_content = vertical_wall_content;
-        (*rays[strip_numb])->was_hit_vertical = 1; 
+        rays[strip_numb]->distance = vertical_hit_distance; 
+        rays[strip_numb]->wall_hit_x = vertical_wall_hit_x;
+        rays[strip_numb]->wall_hit_y = vertical_wall_hit_y;
+        rays[strip_numb]->wall_hit_content = vertical_wall_content;
+        rays[strip_numb]->was_hit_vertical = 1; 
     }else{
         // Horizontal wall hit was the first wall that we found 
-        (*rays[strip_numb])->distance = horizontal_hit_distance; 
-        (*rays[strip_numb])->wall_hit_x = horizontal_wall_hit_x;
-        (*rays[strip_numb])->wall_hit_y = horizontal_wall_hit_y;
-        (*rays[strip_numb])->wall_hit_content = horizontal_wall_content;
-        (*rays[strip_numb])->was_hit_vertical = 0; 
+        rays[strip_numb]->distance = horizontal_hit_distance; 
+        rays[strip_numb]->wall_hit_x = horizontal_wall_hit_x;
+        rays[strip_numb]->wall_hit_y = horizontal_wall_hit_y;
+        rays[strip_numb]->wall_hit_content = horizontal_wall_content;
+        rays[strip_numb]->was_hit_vertical = 0; 
     }
 
     // Set the common fields for the ray struct
-    (*rays[strip_numb])->ray_angle = ray_angle;
-    (*rays[strip_numb])->is_ray_pointing_down = is_ray_pointing_down;
-    (*rays[strip_numb])->is_ray_pointing_up = is_ray_pointing_up;
-    (*rays[strip_numb])->is_ray_pointing_left = is_ray_pointing_left;
-    (*rays[strip_numb])->is_ray_pointing_right = is_ray_pointing_right;
+    rays[strip_numb]->ray_angle = ray_angle;
+    rays[strip_numb]->is_ray_pointing_down = is_ray_pointing_down;
+    rays[strip_numb]->is_ray_pointing_up = is_ray_pointing_up;
+    rays[strip_numb]->is_ray_pointing_left = is_ray_pointing_left;
+    rays[strip_numb]->is_ray_pointing_right = is_ray_pointing_right;
 
 }
 
-void cast_rays(Ray_T **rays[RAY_COUNT], Map_T *map, Player_T *player)
+void cast_rays(Ray_T *rays[RAY_COUNT], Map_T *map, Player_T *player)
 {
     // Calculate the first ray to be cast
     // It starts from the left in the FOV of the player
@@ -189,6 +193,14 @@ void render_rays(Ray_T *rays[RAY_COUNT], SDL_Renderer *renderer, Player_T* playe
     
     // Loop over each ray and render it
     for (int i = 0; i < RAY_COUNT; i++){
-        SDL_RenderDrawLineF(renderer, MINIMAP_SCALE * player->x, MINIMAP_SCALE * player->y, MINIMAP_SCALE * rays[i]->wall_hit_x, MINIMAP_SCALE * rays[i]->wall_hit_y);
+        if (rays[i]){
+            SDL_RenderDrawLineF(renderer, 
+                MINIMAP_SCALE * player->x, 
+                MINIMAP_SCALE * player->y, 
+                MINIMAP_SCALE * rays[i]->wall_hit_x, 
+                MINIMAP_SCALE * rays[i]->wall_hit_y
+            );
+        }
+        
     }
 }

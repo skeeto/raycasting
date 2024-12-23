@@ -93,3 +93,18 @@ int wall_content(Map_T *map, float x, float y)
     // Return the content of the grid at that given position. 
     return map->grid[grid_y][grid_x];
 }
+
+int has_wall_at(Map_T *map, float x, float y)
+{
+    // Map boundary is walls
+    if(x < 0 || x > WINDOW_WIDTH || y < 0 || y > WINDOW_HEIGHT){
+        return 1;
+    }
+
+    // Grid position 
+    int grid_x = (int) floor(x / TILE_SIZE);
+    int grid_y = (int) floor(y / TILE_SIZE);
+
+    // Return the content of the grid at that given position. 
+    return map->grid[grid_y][grid_x] != 0;
+}

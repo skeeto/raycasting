@@ -31,14 +31,14 @@ void move_player(Player_T* player, Map_T* map, float delta_time)
     player->rotation_angle += player->turn_direction*player->rotation_speed * delta_time;
 
     // Moves the player in a direction on the axis
-    const float movestep = player->walk_direction * player->walk_speed * delta_time;
+    float movestep = player->walk_direction * player->walk_speed * delta_time;
     
     // Calculate the new x and y positions 
     float new_x = player->x + cos(player->rotation_angle) * movestep; 
     float new_y = player->y + sin(player->rotation_angle) * movestep;
 
     // Set new x and y postion for the player
-    if (!wall_content(map, new_x, new_y)){
+    if (!has_wall_at(map, new_x, new_y)){
         player->x = new_x;
         player->y = new_y; 
     }
@@ -71,7 +71,7 @@ void render_player(Player_T *player, SDL_Renderer* renderer)
     SDL_RenderFillRectF(renderer, &player_rect);
 
     // Render the direction where the player is looking at
-    SDL_RenderDrawLine(renderer, 
+    SDL_RenderDrawLineF(renderer, 
         MINIMAP_SCALE * player->x,
         MINIMAP_SCALE * player->y, 
         MINIMAP_SCALE * player->x + cos(player->rotation_angle) * 40,
