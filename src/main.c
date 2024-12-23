@@ -76,6 +76,11 @@ int init_window(){
  * Should be called before exiting the binary. 
  */
 void destroy_window(){
+    // Destroy the texture
+    SDL_DestroyTexture(color_buffer_texture);
+
+
+    // Destroy window
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();

@@ -140,8 +140,8 @@ void cast_ray(Ray_T *rays[RAY_COUNT], Map_T *map, Player_T *player, float ray_an
     }
 
     // Calculate the wall hit for both horizontal and vertical hist
-    float horizontal_hit_distance = found_horizontal_wall ? calculate_distance(player->x, player->y, horizontal_wall_hit_x, horizontal_wall_hit_y) : INT_MAX;
-    float vertical_hit_distance = found_vertical_wall ? calculate_distance(player->x, player->y, vertical_wall_hit_x, vertical_wall_hit_y) : INT_MAX;
+    float horizontal_hit_distance = found_horizontal_wall ? calculate_distance(player->x, player->y, horizontal_wall_hit_x, horizontal_wall_hit_y) : FLT_MAX;
+    float vertical_hit_distance = found_vertical_wall ? calculate_distance(player->x, player->y, vertical_wall_hit_x, vertical_wall_hit_y) : FLT_MAX;
 
     // Use the smallest distance to set make the ray struct and set it in the ray list
     if (vertical_hit_distance < horizontal_hit_distance){

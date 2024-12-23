@@ -32,17 +32,26 @@ void render_map(Map_T *map, SDL_Renderer *renderer);
 
 
 /**
- * Check if given position in given map contains a wall
+ * Get the content of the wall at given position
  * 
  * Uses x and y positions that are translated into grid coordinates
  * 
  * @param map given map to check
  * @param x the given x position 
  * @param y the given y position
- * @return int return 0 if no wall hit or 1 if there is a wall hit
+ * @return returns the wall constent at the given position
  */
 int wall_content(Map_T *map, float x, float y);
 
+
+/**
+ * Check there is a wall in the grid 
+ * 
+ * @param map given map to check
+ * @param x the given x position 
+ * @param y the given y position
+ * @return int return 0 if no wall hit or 1 if there is a wall hit
+ */
 int has_wall_at(Map_T *map, float x, float y);
 
 
