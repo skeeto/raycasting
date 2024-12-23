@@ -81,6 +81,11 @@ void render_map(Map_T *map, SDL_Renderer* renderer)
 
 int contains_wall(Map_T *map, float x, float y)
 {
+    // Map boundary is walls
+    if(x < 0 || x > WINDOW_WIDTH || y < 0 || y > WINDOW_HEIGHT){
+        return 1;
+    }
+
     // Grid position 
     int grid_x = (int) floor(x / TILE_SIZE);
     int grid_y = (int) floor(y / TILE_SIZE);
