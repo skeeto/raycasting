@@ -175,12 +175,14 @@ The pointer points to the first element in the color buffer. Each element repres
 
 The allocation looks like this:
 ```c
-color_buffer = (Uint32 *) malloc(sizeof(Uint32) * (Uint32)WINDOW_WIDTH * (Uint32)WINDOW_HIGHT)
+color_buffer = (Uint32 *) malloc(sizeof(Uint32) * (Uint32)WINDOW_WIDTH * (Uint32)WINDOW_HEIGHT)
 ```
 
 Two change the color of the next frame, we access this buffer, and change the hexadecimal number at the given index. 
 
 When we have done the changes that we want, we can simply copy the buffer to an `SDL_Texture`, and then SDL uses the texture for rendering the color buffer!
+
+(See the C code for the color buffer allocation in [./src/color_buffer.c](./src/color_buffer.c))
 
 ## Resources 
 

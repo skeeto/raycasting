@@ -26,6 +26,9 @@ Map_T *map = NULL;
 // List of all rays 
 Ray_T *rays[RAY_COUNT]; 
 
+// Color buffer pointer 
+Uint32 *color_buffer = NULL; 
+
 /**
  * Method for initializing the window to render graphics.
  * 
