@@ -1,13 +1,16 @@
-#include <SDL2/SDL.h>
-#include "map.h"
-
 #ifndef PLAYER_H
 #define PLAYER_H
+
+#include <SDL2/SDL.h>
+#include "constants.h" // Only include this for ROWS/COLS
+
+// Forward declaration
+struct Map; // Forward declaration of Map_T
 
 /**
  * Player struct
  */
-typedef struct Player{
+typedef struct Player {
     float x; 
     float y; 
     float width; 
@@ -20,36 +23,22 @@ typedef struct Player{
 } Player_T;
 
 /**
- * Initialize the player.
- * 
- * Allocates the resources for the given player pointer, and sets default params.
- * 
- * @param player 
+ * Initialize the player
  */
 void init_player(Player_T **player);
 
 /**
  * Method for moving a player
- * 
- * Will also rotate the player and move the player.
- * Uses ows state to termin if we are going to move or not.  
- * 
- * @param player the player to be moved
- * @param delta_time delta time to make the move be dependent on the rendering rate
  */
-void move_player(Player_T *player, Map_T *map, float delta_time);
+void move_player(Player_T *player, struct Map *map, float delta_time);
 
 /**
- * De allocate the player
- * 
- * @param player player to free
+ * Deallocate the player
  */
 void free_player(Player_T *player);
 
 /**
  * Render the player on the SDL screen
- * 
- * @param player 
  */
 void render_player(Player_T *player, SDL_Renderer *renderer);
 

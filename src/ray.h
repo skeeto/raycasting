@@ -1,12 +1,15 @@
-#include "constants.h"
-#include "player.h"
-
 #ifndef RAY_H
 #define RAY_H
 
-typedef struct Ray
-{
-    // Ray information 
+#include "constants.h" 
+#include <SDL2/SDL.h>
+
+// Forward declarations
+struct Map;
+struct Player; 
+
+typedef struct Ray {
+    // Ray information
     float ray_angle; 
     float wall_hit_x;
     float wall_hit_y; 
@@ -46,18 +49,17 @@ void free_rays(Ray_T *rays[RAY_COUNT]);
  * @param ray_angle the angle the ray currently have
  * @param strip_numb the column strip id, used as a index to place the ray in the ray list
  */
-void cast_ray(Ray_T *rays[RAY_COUNT], Map_T *map, Player_T *player, float ray_angle, int strip_numb);
+void cast_ray(Ray_T *rays[RAY_COUNT], struct Map *map, struct Player *player, float ray_angle, int strip_numb);
 
 /**
- * Method that casts all the rays from the given player position
- * 
- * @param rays list of all have been cast
- * @param map map to cast the rays in
- * @param player the player from which we cast all rays
+ * Casts all the rays from the given player position
  */
-void cast_rays(Ray_T *rays[RAY_COUNT], Map_T *map, Player_T *player);
+void cast_rays(Ray_T *rays[RAY_COUNT], struct Map *map, struct Player *player);
 
+/**
+ * Renders the rays on the SDL screen
+ */
+void render_rays(Ray_T *rays[RAY_COUNT], SDL_Renderer *renderer, struct Player *player);
 
-void render_rays(Ray_T *rays[RAY_COUNT], SDL_Renderer *renderer, Player_T* player);
+#endif
 
-#endif 

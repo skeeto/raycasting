@@ -1,5 +1,6 @@
 #include "map.h"
 #include "constants.h"
+#include "ray.h"
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -107,4 +108,29 @@ int has_wall_at(Map_T *map, float x, float y)
 
     // Return the content of the grid at that given position. 
     return map->grid[grid_y][grid_x] != 0;
+}
+
+void render_walls(Map_T *map, Ray_T *rays[RAY_COUNT], Uint32 *color_buffer)
+{
+    for (int i = 0; i < RAY_COUNT; i++){
+        float distance_projection_plane = (WINDOW_WIDTH / 2) / tan(FOV_ANGLE /2);
+        float projection_wall_height = (TILE_SIZE / rays[i]->distance) * distance_projection_plane;
+
+        // Calculate the strip height of the wall 
+        int wall_strip_height = (int) projection_wall_height;
+        
+        // Find the top pixel of the strip
+        int wall_top_pixel = (WINDOW_HEIGHT / 2) - (wall_strip_height / 2);
+        wall_top_pixel = wall_top_pixel < 0 ? 0 : wall_top_pixel;
+
+        // Find the bottom pixel
+        int wall_bottom_pixel = (WINDOW_HEIGHT / 2) + (wall_strip_height / 2);
+        wall_bottom_pixel = wall_bottom_pixel > WINDOW_WIDTH ? 0 : WINDOW_HEIGHT;
+
+
+        // Render the strip from the top to the bottom
+        for (int y = wall_top_pixel; y < wall_bottom_pixel; y++){
+            color_buffer[(WINDOW_WIDTH * y) + 1] = 0xFFFFFFFF;
+        }
+    }
 }

@@ -1,5 +1,7 @@
 #include "ray.h"
 #include "help_functions.h"
+#include "map.h"
+#include "player.h"
 #include <limits.h>
 #include <SDL2/SDL.h>
 
@@ -25,7 +27,7 @@ void free_rays(Ray_T *rays[RAY_COUNT]) {
     }
 }
 
-void cast_ray(Ray_T *rays[RAY_COUNT], Map_T *map, Player_T *player, float ray_angle, int strip_numb)
+void cast_ray(Ray_T *rays[RAY_COUNT], struct Map *map, struct Player *player, float ray_angle, int strip_numb)
 {   
 
     // Normalize the given angle 
@@ -169,7 +171,7 @@ void cast_ray(Ray_T *rays[RAY_COUNT], Map_T *map, Player_T *player, float ray_an
 
 }
 
-void cast_rays(Ray_T *rays[RAY_COUNT], Map_T *map, Player_T *player)
+void cast_rays(Ray_T *rays[RAY_COUNT], struct Map *map, struct Player *player)
 {
     // Calculate the first ray to be cast
     // It starts from the left in the FOV of the player
@@ -186,7 +188,7 @@ void cast_rays(Ray_T *rays[RAY_COUNT], Map_T *map, Player_T *player)
     }
 }
 
-void render_rays(Ray_T *rays[RAY_COUNT], SDL_Renderer *renderer, Player_T* player)
+void render_rays(Ray_T *rays[RAY_COUNT], SDL_Renderer *renderer, struct Player *player)
 {
     // Set the color for the ray
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
