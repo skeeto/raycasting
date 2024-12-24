@@ -94,11 +94,13 @@ void render(){
     SDL_SetRenderDrawColor(renderer, 0,0,0,255);
     SDL_RenderClear(renderer);
 
+
+    // Render the walls by using the color buffer
+    render_walls(rays, color_buffer);
+
     // Render color buffer
     render_color_buffer(renderer, color_buffer, color_buffer_texture);
-
-    // Fill color buffer with color
-    fill_color_buffer(color_buffer, 0xFF000000);
+    fill_color_buffer(color_buffer, 0xFF00EE30);
 
     // Render map
     render_map(map, renderer);

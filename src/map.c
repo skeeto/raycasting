@@ -110,7 +110,7 @@ int has_wall_at(Map_T *map, float x, float y)
     return map->grid[grid_y][grid_x] != 0;
 }
 
-void render_walls(Map_T *map, Ray_T *rays[RAY_COUNT], Uint32 *color_buffer)
+void render_walls(struct Ray *rays[RAY_COUNT], Uint32 *color_buffer)
 {
     for (int i = 0; i < RAY_COUNT; i++){
         float distance_projection_plane = (WINDOW_WIDTH / 2) / tan(FOV_ANGLE /2);
@@ -125,12 +125,12 @@ void render_walls(Map_T *map, Ray_T *rays[RAY_COUNT], Uint32 *color_buffer)
 
         // Find the bottom pixel
         int wall_bottom_pixel = (WINDOW_HEIGHT / 2) + (wall_strip_height / 2);
-        wall_bottom_pixel = wall_bottom_pixel > WINDOW_WIDTH ? 0 : WINDOW_HEIGHT;
+        wall_bottom_pixel = wall_bottom_pixel > WINDOW_HEIGHT ? WINDOW_HEIGHT : wall_bottom_pixel;
 
 
         // Render the strip from the top to the bottom
         for (int y = wall_top_pixel; y < wall_bottom_pixel; y++){
-            color_buffer[(WINDOW_WIDTH * y) + 1] = 0xFFFFFFFF;
+            color_buffer[(WINDOW_WIDTH * y) + i] = rays[i]->was_hit_vertical ? 0xFFFFFFFF : 0xFFCCCCCC;
         }
     }
 }

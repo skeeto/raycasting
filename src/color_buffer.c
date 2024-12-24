@@ -31,11 +31,7 @@ void fill_color_buffer(Uint32 *color_buffer, Uint32 color)
     //Fil the color buffer with the given color
     for(int x = 0; x < WINDOW_WIDTH; x++){
         for(int y = 0; y < WINDOW_HEIGHT; y++){
-            if (x == y){
-                color_buffer[(WINDOW_WIDTH * y)] = color;
-            }else{
-                color_buffer[(WINDOW_WIDTH * y)] = 0xFF000000;
-            }
+            color_buffer[(WINDOW_WIDTH * y) + x] = color;
         }
     }
 }
