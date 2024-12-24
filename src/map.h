@@ -6,6 +6,7 @@
 
 // Forward declaration
 struct Ray; // Forward declaration of Ray_T
+struct Player; // Forward declaration of Player_T
 
 typedef struct Map {
     int grid[ROWS][COLS];
@@ -39,6 +40,6 @@ int has_wall_at(Map_T *map, float x, float y);
 /**
  * Render the walls in the map using rays
  */
-void render_walls(struct Ray *rays[RAY_COUNT], Uint32 *color_buffer);
+void render_walls(struct Ray *rays[RAY_COUNT], Uint32 *color_buffer, struct Player *player);
 
 #endif

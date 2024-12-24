@@ -1,10 +1,11 @@
-#include "map.h"
-#include "constants.h"
-#include "ray.h"
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <SDL2/SDL.h>
+#include "map.h"
+#include "constants.h"
+#include "ray.h"
+#include "player.h"
 
 // Map where
 // - 1 represent a wall
@@ -110,11 +111,13 @@ int has_wall_at(Map_T *map, float x, float y)
     return map->grid[grid_y][grid_x] != 0;
 }
 
-void render_walls(struct Ray *rays[RAY_COUNT], Uint32 *color_buffer)
+void render_walls(struct Ray *rays[RAY_COUNT], Uint32 *color_buffer, struct Player *player)
 {
     for (int i = 0; i < RAY_COUNT; i++){
+        // Calculate the correct distance for fixing the fish eye effect
+        float correct_distance = rays[i]->distance * cos(rays[i]->ray_angle - player->rotation_angle);
         float distance_projection_plane = (WINDOW_WIDTH / 2) / tan(FOV_ANGLE /2);
-        float projection_wall_height = (TILE_SIZE / rays[i]->distance) * distance_projection_plane;
+        float projection_wall_height = (TILE_SIZE / correct_distance) * distance_projection_plane;
 
         // Calculate the strip height of the wall 
         int wall_strip_height = (int) projection_wall_height;
