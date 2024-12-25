@@ -111,7 +111,7 @@ int has_wall_at(Map_T *map, float x, float y)
     return map->grid[grid_y][grid_x] != 0;
 }
 
-void render_walls(struct Ray *rays[RAY_COUNT], Uint32 *color_buffer, struct Player *player)
+void render_walls(struct Ray *rays[RAY_COUNT], Uint32 *color_buffer, struct Player *player, Uint32 *wall_texture)
 {
     for (int i = 0; i < RAY_COUNT; i++){
         // Calculate the correct distance for fixing the fish eye effect
@@ -135,13 +135,35 @@ void render_walls(struct Ray *rays[RAY_COUNT], Uint32 *color_buffer, struct Play
             color_buffer[(WINDOW_WIDTH*y)+i] = DARK_GRAY; 
         }
 
+
+        // We calculate the offset for texture in X axis
+        int texture_offset_x; 
+        if (rays[i]->was_hit_vertical){
+            // vertical hit
+            texture_offset_x = (int)rays[i]->wall_hit_y % TILE_SIZE; 
+        }else{
+            // horizontal hit 
+            texture_offset_x = (int)rays[i]->wall_hit_x % TILE_SIZE; 
+        }
+
+        // Render the strip from the top to the bottom
+        for (int y = wall_top_pixel; y < wall_bottom_pixel; y++){
+            // Get the texture color for the given pixel
+            // Use the texture buffer to access the color
+            // First calculating the offset in Y 
+            int distance_to_top = y + (wall_strip_height/2) - (WINDOW_HEIGHT / 2); 
+            int texture_offset_y = distance_to_top* ((float)TEXTURE_HEIGHT / wall_strip_height); 
+
+            // Get the color
+            Uint32 color = wall_texture[(TEXTURE_WIDTH * texture_offset_y) + texture_offset_x];
+            
+            // Set the color 
+            color_buffer[(WINDOW_WIDTH * y) + i] = color; 
+        }
+
         // Render floor
         for (int y = wall_bottom_pixel; y < WINDOW_HEIGHT; y++){
             color_buffer[(WINDOW_WIDTH * y) + i] = LIGHT_GRAY;
-        }
-        // Render the strip from the top to the bottom
-        for (int y = wall_top_pixel; y < wall_bottom_pixel; y++){
-            color_buffer[(WINDOW_WIDTH * y) + i] = rays[i]->was_hit_vertical ? 0xFFFFFFFF : 0xFFCCCCCC;
         }
     }
 }

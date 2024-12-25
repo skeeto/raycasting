@@ -195,7 +195,15 @@ For textures we can use images in various amount of formats. It does not matter 
 
 ### Mapping between texture and projection 
 
+To map a texture to a projection, we need to again look at wall strip by wall strip. When we draw wall color, we need to look in the texture buffer instead. To make the mapping;
 
+A wall is the same texture size as a tile of the texture. This means that we use a single wall to and then figure out how far along the wall tile the ray hit. Since the number of columns for a wall tile and a texture tile, we can just map directly the texture column to the wall column. 
+
+Given the ray wall hit coordinates (x,y), we know the offset of the texture is (depending on the hit was vertical or horizontal). Now we know the column, we can use this offset to get the column in the texture that we want to use. 
+
+The result: 
+
+![image](./assets/github/basic_texture_wall.png)
 
 ## Resources 
 

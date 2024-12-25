@@ -99,7 +99,7 @@ void render(){
     SDL_RenderClear(renderer);
 
     // Render the walls by using the color buffer
-    render_walls(rays, color_buffer, player);
+    render_walls(rays, color_buffer, player, wall_texture);
 
     // Render color buffer
     render_color_buffer(renderer, color_buffer, color_buffer_texture);

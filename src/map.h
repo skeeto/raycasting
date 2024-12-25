@@ -40,6 +40,6 @@ int has_wall_at(Map_T *map, float x, float y);
 /**
  * Render the walls in the map using rays
  */
-void render_walls(struct Ray *rays[RAY_COUNT], Uint32 *color_buffer, struct Player *player);
+void render_walls(struct Ray *rays[RAY_COUNT], Uint32 *color_buffer, struct Player *player, Uint32 *wall_texture);
 
 #endif
