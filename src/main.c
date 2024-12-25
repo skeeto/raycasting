@@ -5,6 +5,7 @@
 #include "player.h"
 #include "map.h"
 #include "color_buffer.h"
+#include "texture.h"
 
 // Window pointer 
 SDL_Window* window = NULL;
@@ -32,6 +33,9 @@ Uint32 *color_buffer = NULL;
 
 // Color buffer texture 
 SDL_Texture *color_buffer_texture; 
+
+// Wall texture pointer
+Uint32 *wall_texture = NULL; 
 
 /**
  * Method for initializing the window to render graphics.
@@ -118,8 +122,12 @@ void render(){
  * Method for setting up the game objects
  */
 void setup(){
-    // Allocate color buffer
+    // Allocate all buffers
     malloc_color_buffer(&color_buffer);
+    malloc_texture_buffer(&wall_texture);
+
+    // Fill the wall texture 
+    fill_wall_texture(wall_texture, DARK_BLUE);
 
     // Set the initial player postion
     init_player(&player);
@@ -135,8 +143,6 @@ void setup(){
         WINDOW_WIDTH,
         WINDOW_HEIGHT
     );
-
-    
 }
 
 

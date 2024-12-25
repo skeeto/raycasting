@@ -184,6 +184,19 @@ When we have done the changes that we want, we can simply copy the buffer to an 
 
 (See the C code for the color buffer allocation in [./src/color_buffer.c](./src/color_buffer.c))
 
+
+### Applying Textures
+
+After rendering walls, and ceiling with the color buffer, we can look at how textures work. The main idea will remain the same; use the color buffer. 
+
+However, we need to now know from what pixel in the texture do we need to draw. Imagine that we are drawing the wall strip at column 0. How do we know what color of the pixel that we need to draw for the given pixel? Texture are often tile based, which makes this even harder to do. 
+
+For textures we can use images in various amount of formats. It does not matter what format the image is in. All we care about is the color of the pixels of the image. Meaning that we can do the same as the color buffer; we store the texture as a list of hexadecimals. Each number represent the color. 
+
+### Mapping between texture and projection 
+
+
+
 ## Resources 
 
 Ray casting: <br>

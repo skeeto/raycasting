@@ -26,3 +26,9 @@
 // Color constants 
 #define LIGHT_GRAY 0xFF777777
 #define DARK_GRAY 0xFF333333
+#define DARK_BLUE 0xFF0000FF
+
+
+// Texture 
+#define TEXTURE_HEIGHT 64
+#define TEXTURE_WIDTH 64
