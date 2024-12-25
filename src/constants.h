@@ -1,3 +1,6 @@
+#ifndef CONSTANTS_H
+#define CONSTANTS_H
+
 // Control the FPS for the game 
 #define FPS 30
 #define FRAME_TIME_LENGTH (1000 / FPS)
@@ -32,3 +35,5 @@
 // Texture 
 #define TEXTURE_HEIGHT 64
 #define TEXTURE_WIDTH 64
+
+#endif

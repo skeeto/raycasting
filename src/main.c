@@ -6,6 +6,7 @@
 #include "map.h"
 #include "color_buffer.h"
 #include "texture.h"
+#include "wolfenstein_textures.h"
 
 // Window pointer 
 SDL_Window* window = NULL;
@@ -36,6 +37,10 @@ SDL_Texture *color_buffer_texture;
 
 // Wall texture pointer
 Uint32 *wall_texture = NULL; 
+
+// Pointer to all wolfenstein textures
+// It is an array of wall textures
+Uint32 *wolfenstein_textures[8];
 
 /**
  * Method for initializing the window to render graphics.
@@ -124,10 +129,9 @@ void render(){
 void setup(){
     // Allocate all buffers
     malloc_color_buffer(&color_buffer);
-    malloc_texture_buffer(&wall_texture);
 
-    // Fill the wall texture 
-    fill_wall_texture(wall_texture, DARK_BLUE);
+    // Load wolfenstein wall textures for the text buffer
+    load_wolfenstein_textures(&wall_texture);
 
     // Set the initial player postion
     init_player(&player);
@@ -143,6 +147,8 @@ void setup(){
         WINDOW_WIDTH,
         WINDOW_HEIGHT
     );
+
+
 }
 
 

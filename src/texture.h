@@ -1,7 +1,7 @@
-#include <SDL2/SDL_stdinc.h>
+#ifndef TEXTURE_BUFFER_H
+#define TEXTURE_BUFFER_H
+
 #include <SDL2/SDL.h>
-#ifndef TEXTURE_H
-#define TEXTURE_H
 
 /**
  * Allocate memory for the texture buffer.
@@ -20,5 +20,7 @@ void malloc_texture_buffer(Uint32 **texture_buffer);
  * @param color color to create the texture from 
  */
 void fill_wall_texture(Uint32 *texture_buffer, Uint32 color);
+
+void load_wolfenstein_textures(Uint32 *wolfenstein_textures[8]);
 
 #endif

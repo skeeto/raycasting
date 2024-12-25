@@ -50,7 +50,7 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
-
+.vscode/
 
 # Git ignore the Javascript Prototype folder 
 # I wrote a draft in javascript first 
