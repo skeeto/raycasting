@@ -21,3 +21,8 @@
 
 // Amount of rays to cast
 #define RAY_COUNT WINDOW_WIDTH
+
+
+// Color constants 
+#define LIGHT_GRAY 0xFF777777
+#define DARK_GRAY 0xFF333333

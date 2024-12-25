@@ -130,7 +130,15 @@ void render_walls(struct Ray *rays[RAY_COUNT], Uint32 *color_buffer, struct Play
         int wall_bottom_pixel = (WINDOW_HEIGHT / 2) + (wall_strip_height / 2);
         wall_bottom_pixel = wall_bottom_pixel > WINDOW_HEIGHT ? WINDOW_HEIGHT : wall_bottom_pixel;
 
+        // Render roof
+        for (int y = 0; y < wall_top_pixel; y++){
+            color_buffer[(WINDOW_WIDTH*y)+i] = DARK_GRAY; 
+        }
 
+        // Render floor
+        for (int y = wall_bottom_pixel; y < WINDOW_HEIGHT; y++){
+            color_buffer[(WINDOW_WIDTH * y) + i] = LIGHT_GRAY;
+        }
         // Render the strip from the top to the bottom
         for (int y = wall_top_pixel; y < wall_bottom_pixel; y++){
             color_buffer[(WINDOW_WIDTH * y) + i] = rays[i]->was_hit_vertical ? 0xFFFFFFFF : 0xFFCCCCCC;
