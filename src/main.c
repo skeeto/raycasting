@@ -104,7 +104,7 @@ void render(){
     SDL_RenderClear(renderer);
 
     // Render the walls by using the color buffer
-    render_walls(rays, color_buffer, player, wall_texture);
+    render_walls(rays, color_buffer, player, &wolfenstein_textures);
 
     // Render color buffer
     render_color_buffer(renderer, color_buffer, color_buffer_texture);
@@ -131,7 +131,17 @@ void setup(){
     malloc_color_buffer(&color_buffer);
 
     // Load wolfenstein wall textures for the text buffer
-    load_wolfenstein_textures(&wall_texture);
+    malloc_texture_buffer(&wolfenstein_textures);
+
+    // Assign textures in the texture buffer
+    wolfenstein_textures[0] = (Uint32*) REDBRICK_TEXTURE; 
+    wolfenstein_textures[1] = (Uint32*) PURPLESTONE_TEXTURE;
+    wolfenstein_textures[2] = (Uint32*) MOSSYSTONE_TEXTURE;
+    wolfenstein_textures[3] = (Uint32*) GRAYSTONE_TEXTURE;
+    wolfenstein_textures[4] = (Uint32*) COLORSTONE_TEXTURE;
+    wolfenstein_textures[5] = (Uint32*) BLUESTONE_TEXTURE;
+    wolfenstein_textures[6] = (Uint32*) WOOD_TEXTURE;
+    wolfenstein_textures[7] = (Uint32*) EAGLE_TEXTURE;
 
     // Set the initial player postion
     init_player(&player);

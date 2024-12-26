@@ -21,6 +21,4 @@ void malloc_texture_buffer(Uint32 **texture_buffer);
  */
 void fill_wall_texture(Uint32 *texture_buffer, Uint32 color);
 
-void load_wolfenstein_textures(Uint32 *wolfenstein_textures[8]);
-
 #endif

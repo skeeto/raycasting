@@ -111,7 +111,7 @@ int has_wall_at(Map_T *map, float x, float y)
     return map->grid[grid_y][grid_x] != 0;
 }
 
-void render_walls(struct Ray *rays[RAY_COUNT], Uint32 *color_buffer, struct Player *player, Uint32 *wall_texture)
+void render_walls(struct Ray *rays[RAY_COUNT], Uint32 *color_buffer, struct Player *player, Uint32 *wall_texture[8])
 {
     for (int i = 0; i < RAY_COUNT; i++){
         // Calculate the correct distance for fixing the fish eye effect
@@ -136,6 +136,11 @@ void render_walls(struct Ray *rays[RAY_COUNT], Uint32 *color_buffer, struct Play
         }
 
 
+        // Get the current wall ID
+        // Will be used as a index to the textures in the array
+        int TEXTURE_INDEX = rays[i]->wall_hit_content - 1;
+
+
         // We calculate the offset for texture in X axis
         int texture_offset_x; 
         if (rays[i]->was_hit_vertical){
@@ -155,7 +160,7 @@ void render_walls(struct Ray *rays[RAY_COUNT], Uint32 *color_buffer, struct Play
             int texture_offset_y = distance_to_top* ((float)TEXTURE_HEIGHT / wall_strip_height); 
 
             // Get the color
-            Uint32 color = wall_texture[(TEXTURE_WIDTH * texture_offset_y) + texture_offset_x];
+            Uint32 color = wall_texture[TEXTURE_INDEX][(TEXTURE_WIDTH * texture_offset_y) + texture_offset_x];
             
             // Set the color 
             color_buffer[(WINDOW_WIDTH * y) + i] = color; 
