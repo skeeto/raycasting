@@ -1,5 +1,18 @@
 # Ray Casting in C
-Implementation of ray casting in C
+
+![gif](./assets/github/demos/demo_0_1_1.gif)
+
+A minimalist ray casting engine implemented in C, inspired by the rendering technique that powered Wolfenstein 3D. This project shows how to create pseudo-3D graphics using ray casting principles, rendering a first-person perspective in real-time. 
+
+
+## Features
+- Fast and efficient ray casting engine
+- Texture-mapped walls
+- Real-time movement and rotation
+- Collision detection
+- Minimap display
+
+> I took notes when I learned the technique. Feel free to take a look :) 
 
 ## Usage
 
@@ -19,6 +32,11 @@ make run
 ```
 
 (See the `Makefile` for extra rules)
+
+4. Control the game with:
+    - W/S - Move forward/backward
+    - A/D - Rotate camera left/right
+    - ESC - Exit the program
 
 ## Theory behind Wolfstein 3D Ray Casting 
 

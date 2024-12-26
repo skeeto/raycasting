@@ -21,8 +21,8 @@ void init_player(Player_T **player)
     (*player)->turn_direction = 0; 
     (*player)->walk_direction = 0; 
     (*player)->rotation_angle = PI / 2; 
-    (*player)->walk_speed = 100; 
-    (*player)->rotation_speed = 45 * (PI / 180);
+    (*player)->walk_speed = 200; 
+    (*player)->rotation_speed = 50 * (PI / 180);
 }
 
 void move_player(Player_T* player, struct Map* map, float delta_time)
