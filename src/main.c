@@ -104,7 +104,7 @@ void render(){
     SDL_RenderClear(renderer);
 
     // Render the walls by using the color buffer
-    render_walls(rays, color_buffer, player, &wolfenstein_textures);
+    render_room_projection(rays, color_buffer, player, &wolfenstein_textures);
 
     // Render color buffer
     render_color_buffer(renderer, color_buffer, color_buffer_texture);

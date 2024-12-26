@@ -111,7 +111,7 @@ int has_wall_at(Map_T *map, float x, float y)
     return map->grid[grid_y][grid_x] != 0;
 }
 
-void render_walls(struct Ray *rays[RAY_COUNT], Uint32 *color_buffer, struct Player *player, Uint32 *wall_texture[8])
+void render_room_projection(struct Ray *rays[RAY_COUNT], Uint32 *color_buffer, struct Player *player, Uint32 *wall_texture[8])
 {
     for (int i = 0; i < RAY_COUNT; i++){
         // Calculate the correct distance for fixing the fish eye effect

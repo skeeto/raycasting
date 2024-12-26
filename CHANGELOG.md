@@ -2,7 +2,7 @@
 
 - Rendering floor and roof (simple color)
 - Improved docs and code readability 
-
+- Render wolfenstein wall textures
 
 ## 0.1.0
 

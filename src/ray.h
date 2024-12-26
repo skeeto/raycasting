@@ -53,11 +53,24 @@ void cast_ray(Ray_T *rays[RAY_COUNT], struct Map *map, struct Player *player, fl
 
 /**
  * Casts all the rays from the given player position
+ * 
+ * Stores the casted rays in the list of rays.
+ * 
+ * @param rays list of rays 
+ * @param map the map to cast all rays in 
+ * @param player given player to cast rays from 
  */
 void cast_rays(Ray_T *rays[RAY_COUNT], struct Map *map, struct Player *player);
 
 /**
- * Renders the rays on the SDL screen
+ * Render the rays in the minimap from the given player position. 
+ * 
+ * Will appear as red lines in the minimap.
+ * Each ray starts from the direction the player is, until the wall.
+ * 
+ * @param rays list of rays that has been casted
+ * @param renderer SDL renderer to use for rendering the rays
+ * @param player player that have been used to cast rays from
  */
 void render_rays(Ray_T *rays[RAY_COUNT], SDL_Renderer *renderer, struct Player *player);
 

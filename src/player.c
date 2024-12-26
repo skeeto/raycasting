@@ -25,7 +25,7 @@ void init_player(Player_T **player)
     (*player)->rotation_speed = 45 * (PI / 180);
 }
 
-void move_player(Player_T* player, Map_T* map, float delta_time)
+void move_player(Player_T* player, struct Map* map, float delta_time)
 {   
     // Makes the player able to rotate
     player->rotation_angle += player->turn_direction*player->rotation_speed * delta_time;
