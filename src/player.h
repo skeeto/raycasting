@@ -1,7 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #include "constants.h" // Only include this for ROWS/COLS
 
 // Forward declaration
@@ -31,7 +31,7 @@ typedef struct Player {
  * 
  * @param player player pointer to be allocated memory for.
  */
-void init_player(Player_T **player);
+void init_player(Player_T *player);
 
 /**
  * Move the player based on the player current state. 
